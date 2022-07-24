@@ -16,6 +16,8 @@ class Model
         } else {
             $result = pg_query($this->db, $query);
         }
-        return pg_fetch_all($result);
+        if($result)
+            return pg_fetch_all($result);
+        return $result;
     }
 }

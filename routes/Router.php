@@ -16,7 +16,7 @@ class Router
         self::$routes[$pattern] = $callback;
     }
 
-    public static function execute($url)
+    public static function execute($url, $else = null)
     {
         $url = explode("?", $url);
         foreach (self::$routes as $pattern => $callback) {
@@ -32,7 +32,8 @@ class Router
                 return call_user_func($callback);
             }
         }
-        //временно для отладки
-        throw new Exception("not found");
+        if($else)
+            return call_user_func($else);
+        throw new Exception("URL not found");
     }
 }

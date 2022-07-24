@@ -1,6 +1,7 @@
 <?php
 
 const ROOT = "D:/OpenServer/domains/short-url";
+const DOMAIN = "http://short.url/";
 const CONTROLLER_PATH = ROOT . "/controllers/";
 const MODEL_PATH = ROOT . "/models/";
 const VIEW_PATH = ROOT . "/views/";

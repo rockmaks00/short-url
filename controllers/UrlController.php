@@ -6,16 +6,38 @@ class UrlController extends Controller {
         $this->model = new UrlModel();
     }
 
-    public function create() {
-        $url = $_GET["url"];
-        $short = DOMAIN . mb_substr(md5($url), 0, 5);
-        $this->model->create_url($url, $short); //если ссылка уже есть в базе, то новая запись не будет создана
-        echo $short;
+    private function short($url) {
+        return DOMAIN . mb_substr(md5($url), 0, 5);
     }
 
-    public function get_url() {
+    public function create() {
+        $url = $_GET["url"];
+        //базовая проверка URL
+        if (filter_var($url, FILTER_VALIDATE_URL)) {
+            $short = $this->short($url);
+            $resp = $this->model->get_url($short);
+            //проверка наличия в базе ссылки
+            if($resp[0] === null) {
+                $this->model->create_url($url, $short);
+                echo $short;
+            }
+            elseif ($resp[0]["url"] === $url) {
+                echo $short;
+            }
+            else
+                echo "Ошибка: коллизия или ошибка в БД.";
+        }
+        else {
+            echo "Ошибка: некорректный URL.";
+        }
+    }
+
+    public function redirect() {
         $short = DOMAIN . substr($_SERVER['REQUEST_URI'], 1);
         $url = $this->model->get_url($short)[0]["url"];
-        header("Location: " . $url);
+        if($url !== null)
+            header("Location: " . $url);
+        else
+            echo "<h1 style='font-family: Arial; text-align: center'>Данной ссылки не существует.</h1>"; //некрасивая валидация
     }
 }

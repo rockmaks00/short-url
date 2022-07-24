@@ -5,5 +5,6 @@ function submit() {
         input.val(result);
         input[0].select();
         document.execCommand("copy");
+        alert("Ссылка скопирована в буфер обмена.")
     });
 }

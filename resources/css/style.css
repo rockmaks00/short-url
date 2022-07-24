@@ -1,0 +1,29 @@
+.main-div {
+    position: relative;
+    margin-top: 50px;
+    border: 1px solid lightgray;
+    border-radius: 18px;
+    overflow: hidden;
+}
+
+.button {
+    background-color: lightseagreen;
+    border: none;
+    color: white;
+    padding: 8px 28px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}
+
+.input {
+    margin-right: 10px;
+    padding: 5px;
+    width: 50%;
+}
+
+h1 {
+    font-family: Arial;
+    font-size: 24px;
+}
